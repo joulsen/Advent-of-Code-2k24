@@ -1,4 +1,5 @@
 #include "day1.hpp"
+#include "day2.hpp"
 #include <iostream>
 #include <filesystem>
 
@@ -11,11 +12,13 @@ void usage(std::string program_name)
 }
 
 Day1 day1;
+Day2 day2;
 
 void list()
 {
     std::cout << "Available days:\n";
     std::cout << "Day " << day1.get_day_number() << ": " << day1.get_day_name() << "\n";
+    std::cout << "Day " << day2.get_day_number() << ": " << day2.get_day_name() << "\n";
 }
 
 void run(int day, const std::filesystem::path &input_path)
@@ -30,6 +33,8 @@ void run(int day, const std::filesystem::path &input_path)
         {
         case 1:
             return day1.run(input_path);
+        case 2:
+            return day2.run(input_path);
         default:
             throw std::runtime_error("Day not implemented");
         }
