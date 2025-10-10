@@ -1,5 +1,4 @@
-#include "day1.hpp"
-#include "day2.hpp"
+#include "day.hpp"
 #include <iostream>
 #include <filesystem>
 
@@ -11,14 +10,18 @@ void usage(std::string program_name)
     std::cout << "  list                       List available days\n";
 }
 
-Day1 day1;
-Day2 day2;
-
 void list()
 {
     std::cout << "Available days:\n";
-    std::cout << "Day " << day1.get_day_number() << ": " << day1.get_day_name() << "\n";
-    std::cout << "Day " << day2.get_day_number() << ": " << day2.get_day_name() << "\n";
+    auto &factory = DayFactory::instance();
+    auto all_days = factory.get_all_days();
+
+    for (const auto &[day_num, creator] : all_days)
+    {
+        auto day_instance = creator();
+        std::cout << "Day " << day_instance->get_day_number()
+                  << ": " << day_instance->get_day_name() << "\n";
+    }
 }
 
 void run(int day, const std::filesystem::path &input_path)
@@ -27,52 +30,65 @@ void run(int day, const std::filesystem::path &input_path)
     {
         throw std::runtime_error("Input file does not exist");
     }
-    auto execute_day = [&](int day) -> std::pair<std::string, std::string>
+
+    auto &factory = DayFactory::instance();
+    auto day_instance = factory.create_day(day);
+
+    if (!day_instance)
     {
-        switch (day)
-        {
-        case 1:
-            return day1.run(input_path);
-        case 2:
-            return day2.run(input_path);
-        default:
-            throw std::runtime_error("Day not implemented");
-        }
-    };
-    auto results = execute_day(day);
-    std::cout << "Day " << day << " Results:\n";
-    std::cout << "Part 1: " << results.first << "\n";
-    std::cout << "Part 2: " << results.second << "\n";
+        throw std::runtime_error("Day " + std::to_string(day) + " not implemented");
+    }
+
+    try
+    {
+        auto results = day_instance->run(input_path);
+        std::cout << "Day " << day << " Results:\n";
+        std::cout << "Part 1: " << results.first << "\n";
+        std::cout << "Part 2: " << results.second << "\n";
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Error running day " << day << ": " << e.what() << "\n";
+        throw;
+    }
 }
 
 int main(int argc, char *argv[])
 {
-    if (argc < 2)
+    try
     {
-        usage(argv[0]);
-        return 1;
-    }
-    std::string action = argv[1];
-    if (action == "list")
-    {
-        list();
-        return 0;
-    }
-    if (action == "run")
-    {
-        if (argc != 4)
+        if (argc < 2)
         {
             usage(argv[0]);
             return 1;
         }
-        int day = std::stoi(argv[2]);
-        std::filesystem::path input_path = argv[3];
-        run(day, input_path);
-        return 0;
+        std::string action = argv[1];
+        if (action == "list")
+        {
+            list();
+            return 0;
+        }
+        if (action == "run")
+        {
+            if (argc != 4)
+            {
+                usage(argv[0]);
+                return 1;
+            }
+            int day = std::stoi(argv[2]);
+            std::filesystem::path input_path = argv[3];
+            run(day, input_path);
+            return 0;
+        }
+        else
+        {
+            usage(argv[0]);
+            return 1;
+        }
     }
-    else
+    catch (const std::exception &e)
     {
-        usage(argv[0]);
+        std::cerr << "Error: " << e.what() << "\n";
         return 1;
     }
 }

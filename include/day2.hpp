@@ -1,3 +1,6 @@
+#ifndef AOC2024_DAY2_HPP
+#define AOC2024_DAY2_HPP
+
 #include "day.hpp"
 #include <vector>
 
@@ -25,3 +28,7 @@ private:
     int part1(const std::vector<Report> &reports);
     int part2(const std::vector<Report> &reports);
 };
+
+REGISTER_DAY(Day2, 2)
+
+#endif // AOC2024_DAY2_HPP

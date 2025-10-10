@@ -1,3 +1,6 @@
+#ifndef AOC2024_DAY1_HPP
+#define AOC2024_DAY1_HPP
+
 #include "day.hpp"
 #include <vector>
 #include <string>
@@ -14,3 +17,7 @@ private:
     int part1(std::vector<int> column_1, std::vector<int> column_2);
     int part2(std::vector<int> column_1, std::vector<int> column_2);
 };
+
+REGISTER_DAY(Day1, 1)
+
+#endif // AOC2024_DAY1_HPP
