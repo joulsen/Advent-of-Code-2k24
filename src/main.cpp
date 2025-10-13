@@ -1,6 +1,7 @@
 #include "day.hpp"
 #include <iostream>
 #include <filesystem>
+#include <chrono>
 
 void usage(std::string program_name)
 {
@@ -41,10 +42,14 @@ void run(int day, const std::filesystem::path &input_path)
 
     try
     {
+        auto now = std::chrono::high_resolution_clock::now();
         auto results = day_instance->run(input_path);
+        auto duration = std::chrono::high_resolution_clock::now() - now;
+        double ms = std::chrono::duration<double, std::milli>(duration).count();
         std::cout << "Day " << day << " Results:\n";
         std::cout << "Part 1: " << results.first << "\n";
         std::cout << "Part 2: " << results.second << "\n";
+        std::cout << "Duration: " << ms << " ms\n";
     }
     catch (const std::exception &e)
     {
