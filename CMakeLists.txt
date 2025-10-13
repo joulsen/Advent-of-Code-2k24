@@ -4,7 +4,12 @@ project(aoc2024)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-file(GLOB_RECURSE SOURCES "src/*.cpp")
+set(SOURCES
+    src/main.cpp
+    src/day1.cpp
+    src/day2.cpp
+    src/day3.cpp
+)
 
 add_executable(aoc2024 ${SOURCES})
 
