@@ -4,6 +4,12 @@ project(aoc2024)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Create helper library
+add_library(helpers
+    src/helpers/tilemap.cpp
+)
+target_include_directories(helpers PUBLIC include/helpers)
+
 set(SOURCES
     src/main.cpp
     src/day1.cpp
@@ -15,3 +21,5 @@ set(SOURCES
 add_executable(aoc2024 ${SOURCES})
 
 target_include_directories(aoc2024 PRIVATE include)
+
+target_link_libraries(aoc2024 PRIVATE helpers)

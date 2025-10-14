@@ -47,18 +47,11 @@ int Day4::part2(const TileMap &tile_map)
     std::vector<TileMap::Coord> a_positions = tile_map.find('A');
     for (const auto &[a_row, a_col] : a_positions)
     {
-        // Check if we can form an X-MAS pattern centered at this 'A'
-        // We need to check the two diagonals: top-left to bottom-right, and top-right to bottom-left
-
-        // Get the diagonal strings (3 characters each: start-A-end)
-        std::string diag1 = tile_map.get_string_in_direction(a_row - 1, a_col - 1, {1, 1}, 3);  // top-left to bottom-right
-        std::string diag2 = tile_map.get_string_in_direction(a_row - 1, a_col + 1, {1, -1}, 3); // top-right to bottom-left
-
-        // Check if both diagonals are valid (length 3 and center is 'A')
+        std::string diag1 = tile_map.get_string_in_direction(a_row - 1, a_col - 1, {1, 1}, 3);
+        std::string diag2 = tile_map.get_string_in_direction(a_row - 1, a_col + 1, {1, -1}, 3);
         if (diag1.length() == 3 && diag2.length() == 3 &&
             diag1[1] == 'A' && diag2[1] == 'A')
         {
-            // Check if both diagonals spell "MAS" or "SAM"
             bool diag1_valid = (diag1 == "MAS" || diag1 == "SAM");
             bool diag2_valid = (diag2 == "MAS" || diag2 == "SAM");
 
