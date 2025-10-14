@@ -2,7 +2,7 @@
 #define AOC2024_DAY4_HPP
 
 #include "day.hpp"
-#include "tilemap.hpp"
+#include "helpers/tilemap.hpp"
 
 class Day4 : public Day
 {

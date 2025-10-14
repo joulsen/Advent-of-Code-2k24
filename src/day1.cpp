@@ -1,11 +1,12 @@
 #include "day1.hpp"
-#include <filesystem>
+
 #include <algorithm>
-#include <vector>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <vector>
 
-std::pair<std::string, std::string> Day1::run(const std::filesystem::path &input_path)
+std::pair<std::string, std::string> Day1::run(const std::filesystem::path& input_path)
 {
     std::vector<int> column_1;
     std::vector<int> column_2;
@@ -15,7 +16,7 @@ std::pair<std::string, std::string> Day1::run(const std::filesystem::path &input
     return {std::to_string(result_part1), std::to_string(result_part2)};
 }
 
-void Day1::parse_input(const std::filesystem::path &input_path, std::vector<int> &out_column_1, std::vector<int> &out_column_2)
+void Day1::parse_input(const std::filesystem::path& input_path, std::vector<int>& out_column_1, std::vector<int>& out_column_2)
 {
     if (!std::filesystem::exists(input_path))
     {
@@ -49,7 +50,7 @@ int Day1::part1(std::vector<int> column_1, std::vector<int> column_2)
 int Day1::part2(std::vector<int> column_1, std::vector<int> column_2)
 {
     int similarity_score = 0;
-    for (const auto &val1 : column_1)
+    for (const auto& val1 : column_1)
     {
         similarity_score += std::count(column_2.begin(), column_2.end(), val1) * val1;
     }

@@ -1,11 +1,12 @@
 #include "day3.hpp"
+
 #include <filesystem>
 #include <fstream>
-#include <regex>
 #include <iostream>
+#include <regex>
 #include <sstream>
 
-std::pair<std::string, std::string> Day3::run(const std::filesystem::path &input_path)
+std::pair<std::string, std::string> Day3::run(const std::filesystem::path& input_path)
 {
     std::string input = parse_input(input_path);
     int result_part1 = part1(input);
@@ -13,7 +14,7 @@ std::pair<std::string, std::string> Day3::run(const std::filesystem::path &input
     return {std::to_string(result_part1), std::to_string(result_part2)};
 };
 
-std::string Day3::parse_input(const std::filesystem::path &input_path)
+std::string Day3::parse_input(const std::filesystem::path& input_path)
 {
     std::ifstream file(input_path);
     std::string contents((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
@@ -21,7 +22,7 @@ std::string Day3::parse_input(const std::filesystem::path &input_path)
     return contents;
 }
 
-int Day3::part1(const std::string &contents)
+int Day3::part1(const std::string& contents)
 {
     std::regex mul_regex(R"(mul\((\d+),(\d+)\))");
     auto matches_begin = std::sregex_iterator(contents.begin(), contents.end(), mul_regex);
@@ -37,7 +38,7 @@ int Day3::part1(const std::string &contents)
     return result;
 }
 
-int Day3::part2(const std::string &contents)
+int Day3::part2(const std::string& contents)
 {
     unsigned int result = 0;
     bool doing = true;

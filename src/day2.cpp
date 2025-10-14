@@ -1,11 +1,12 @@
 #include "day2.hpp"
-#include <filesystem>
-#include <vector>
-#include <sstream>
-#include <fstream>
-#include <algorithm>
 
-std::pair<std::string, std::string> Day2::run(const std::filesystem::path &input_path)
+#include <algorithm>
+#include <filesystem>
+#include <fstream>
+#include <sstream>
+#include <vector>
+
+std::pair<std::string, std::string> Day2::run(const std::filesystem::path& input_path)
 {
     auto reports = parse_input(input_path);
     int result_part1 = part1(reports);
@@ -13,7 +14,7 @@ std::pair<std::string, std::string> Day2::run(const std::filesystem::path &input
     return {std::to_string(result_part1), std::to_string(result_part2)};
 }
 
-std::vector<Report> Day2::parse_input(const std::filesystem::path &input_path)
+std::vector<Report> Day2::parse_input(const std::filesystem::path& input_path)
 {
     std::ifstream input_file(input_path);
     std::vector<Report> reports;
@@ -28,16 +29,14 @@ std::vector<Report> Day2::parse_input(const std::filesystem::path &input_path)
     return reports;
 }
 
-int Day2::part1(const std::vector<Report> &reports)
+int Day2::part1(const std::vector<Report>& reports)
 {
-    return std::count_if(reports.begin(), reports.end(), [](const Report &report)
-                         { return report.is_safe(false); });
+    return std::count_if(reports.begin(), reports.end(), [](const Report& report) { return report.is_safe(false); });
 }
 
-int Day2::part2(const std::vector<Report> &reports)
+int Day2::part2(const std::vector<Report>& reports)
 {
-    return std::count_if(reports.begin(), reports.end(), [](const Report &report)
-                         { return report.is_safe(true); });
+    return std::count_if(reports.begin(), reports.end(), [](const Report& report) { return report.is_safe(true); });
 }
 
 Report::Report(std::string line)

@@ -1,7 +1,8 @@
-#include "day.hpp"
-#include <iostream>
-#include <filesystem>
 #include <chrono>
+#include <filesystem>
+#include <iostream>
+
+#include "day.hpp"
 
 void usage(std::string program_name)
 {
@@ -14,25 +15,24 @@ void usage(std::string program_name)
 void list()
 {
     std::cout << "Available days:\n";
-    auto &factory = DayFactory::instance();
+    auto& factory = DayFactory::instance();
     auto all_days = factory.get_all_days();
 
-    for (const auto &[day_num, creator] : all_days)
+    for (const auto& [day_num, creator] : all_days)
     {
         auto day_instance = creator();
-        std::cout << "Day " << day_instance->get_day_number()
-                  << ": " << day_instance->get_day_name() << "\n";
+        std::cout << "Day " << day_instance->get_day_number() << ": " << day_instance->get_day_name() << "\n";
     }
 }
 
-void run(int day, const std::filesystem::path &input_path)
+void run(int day, const std::filesystem::path& input_path)
 {
     if (!std::filesystem::exists(input_path))
     {
         throw std::runtime_error("Input file does not exist");
     }
 
-    auto &factory = DayFactory::instance();
+    auto& factory = DayFactory::instance();
     auto day_instance = factory.create_day(day);
 
     if (!day_instance)
@@ -51,14 +51,14 @@ void run(int day, const std::filesystem::path &input_path)
         std::cout << "Part 2: " << results.second << "\n";
         std::cout << "Duration: " << ms << " ms\n";
     }
-    catch (const std::exception &e)
+    catch (const std::exception& e)
     {
         std::cerr << "Error running day " << day << ": " << e.what() << "\n";
         throw;
     }
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     try
     {
@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
             return 1;
         }
     }
-    catch (const std::exception &e)
+    catch (const std::exception& e)
     {
         std::cerr << "Error: " << e.what() << "\n";
         return 1;
