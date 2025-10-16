@@ -4,18 +4,7 @@
 #include <vector>
 
 #include "day.hpp"
-
-class Report
-{
-public:
-    Report(std::string line);
-    bool is_safe(bool dampen) const;
-
-private:
-    bool within_threshold(int difference) const;
-    bool check_safety(std::vector<int> levels) const;
-    std::vector<int> m_levels;
-};
+#include "report.hpp"
 
 class Day2 : public Day
 {

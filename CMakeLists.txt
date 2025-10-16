@@ -12,7 +12,7 @@ target_include_directories(helpers PUBLIC helpers/include)
 
 # Function to add days automatically
 function(add_aoc_days target_name day_list)
-    set(day_sources helpers/src/cli.cpp)
+    set(day_sources cli/src/main.cpp)
     set(day_includes include)
     
     foreach(day ${day_list})
