@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "day5/rules.hpp"
+#include "rules.hpp"
 
 class Job
 {

@@ -6,21 +6,28 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Create helper library
 add_library(helpers
-    src/helpers/tilemap.cpp
+    helpers/src/tilemap.cpp
 )
-target_include_directories(helpers PUBLIC include/helpers)
+target_include_directories(helpers PUBLIC helpers/include)
 
-set(SOURCES
-    src/main.cpp
-    src/day1.cpp
-    src/day2.cpp
-    src/day3.cpp
-    src/day4.cpp
-    src/day5.cpp
-)
+# Function to add days automatically
+function(add_aoc_days target_name day_list)
+    set(day_sources helpers/src/cli.cpp)
+    set(day_includes include)
+    
+    foreach(day ${day_list})
+        list(APPEND day_sources day${day}/src/day${day}.cpp)
+        list(APPEND day_includes day${day}/include)
+    endforeach()
+    
+    add_executable(${target_name} ${day_sources})
+    target_include_directories(${target_name} PRIVATE ${day_includes})
+endfunction()
 
-add_executable(aoc2024 ${SOURCES})
+# Define which days to include
+set(AOC_DAYS 1 2 3 4 5)
 
-target_include_directories(aoc2024 PRIVATE include)
+# Add all days
+add_aoc_days(aoc2024 "${AOC_DAYS}")
 
 target_link_libraries(aoc2024 PRIVATE helpers)

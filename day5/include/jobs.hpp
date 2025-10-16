@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "day5/job.hpp"
+#include "job.hpp"
 
 class Jobs
 {

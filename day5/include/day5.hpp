@@ -2,8 +2,8 @@
 #define AOC2024_DAY5_HPP
 
 #include "day.hpp"
-#include "day5/jobs.hpp"
-#include "day5/rules.hpp"
+#include "jobs.hpp"
+#include "rules.hpp"
 
 class Day5 : public Day
 {
