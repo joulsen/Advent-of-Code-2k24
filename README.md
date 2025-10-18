@@ -24,3 +24,7 @@ Actions:
   run <day> <input_file>     Run the solution with the specified input file
   list                       List available days
 ```
+
+# Generator
+Inside `helpers/` resides a generator, which I use to generate the skeleton for each day.
+This tool is not required for building or running the submissions, but if you want to run it, there is a `requirements.txt` that you can use to satisfy the dependencies.

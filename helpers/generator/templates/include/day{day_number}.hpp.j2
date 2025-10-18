@@ -1,0 +1,19 @@
+#ifndef AOC2024_DAY{{ day_number }}_HPP
+#define AOC2024_DAY{{ day_number }}_HPP
+
+#include <string>
+#include <vector>
+
+#include "day.hpp"
+
+class Day{{ day_number }} : public Day
+{
+public:
+    std::pair<std::string, std::string> run(const std::filesystem::path& input_path) override;
+    unsigned int get_day_number() const override { return {{ day_number }}; }
+    std::string get_day_name() const override { return "{{ day_name }}"; }
+
+};
+
+REGISTER_DAY(Day{{ day_number }}, {{ day_number }})
+#endif  // AOC2024_DAY{{ day_number }}_HPP
