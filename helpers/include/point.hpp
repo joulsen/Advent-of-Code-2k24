@@ -13,6 +13,9 @@ struct Point
     constexpr Point operator-(const Point& other) const { return {x - other.x, y - other.y}; }
     constexpr Point operator*(int scalar) const { return {x * scalar, y * scalar}; }
     constexpr bool operator==(const Point& other) const { return x == other.x && y == other.y; }
+    constexpr bool operator!=(const Point& other) const { return !(*this == other); }
+    constexpr bool operator<(const Point& other) const { return (x < other.x) || (x == other.x && y < other.y); }
+
     std::string to_string() const { return "(" + std::to_string(x) + ", " + std::to_string(y) + ")"; }
 };
 

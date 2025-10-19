@@ -1,6 +1,9 @@
 #ifndef AOC2024_HELPERS_GRID_HPP
 #define AOC2024_HELPERS_GRID_HPP
 
+#include <filesystem>
+#include <fstream>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -45,8 +48,32 @@ public:
 
     const char& at(const Point& point) const
     {
-        if (!in_bounds(point.x, point.y)) throw std::out_of_range("Point is out of grid bounds");
+        if (!in_bounds(point))
+        {
+            throw std::out_of_range("Point is out of grid bounds");
+        }
         return m_data[point.y][point.x];
+    }
+
+    bool set(const Point& point, char c)
+    {
+        if (!in_bounds(point)) return false;
+        char& current_char = m_data[point.y][point.x];
+        current_char = c;
+        return true;
+    }
+
+    void rebuild_char_positions()
+    {
+        m_char_positions.clear();
+        for (unsigned int r = 0; r < m_rows; ++r)
+        {
+            for (unsigned int c = 0; c < m_cols; ++c)
+            {
+                char tile = m_data[r][c];
+                m_char_positions[tile].emplace_back(Point{static_cast<int>(c), static_cast<int>(r)});
+            }
+        }
     }
 
     const std::vector<Point>& get_points_by_char(char c) const
@@ -66,7 +93,7 @@ public:
         for (const Point& dir : {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT})
         {
             Point neighbor = point + dir;
-            if (in_bounds(neighbor.x, neighbor.y))
+            if (in_bounds(neighbor))
             {
                 neighbors.push_back(neighbor);
             }
@@ -80,7 +107,7 @@ public:
         for (const Point& dir : mask)
         {
             Point neighbor = point + dir;
-            if (in_bounds(neighbor.x, neighbor.y))
+            if (in_bounds(neighbor))
             {
                 neighbors.push_back(neighbor);
             }
@@ -94,7 +121,7 @@ public:
         Point current = start;
         for (unsigned int i = 0; i < distance; ++i)
         {
-            if (!in_bounds(current.x, current.y)) break;
+            if (!in_bounds(current)) break;
             points.push_back(current);
             current = current + direction;
         }
@@ -106,13 +133,28 @@ public:
         std::string result;
         for (const auto& point : points)
         {
-            if (!in_bounds(point.x, point.y)) continue;
+            if (!in_bounds(point)) continue;
             result += m_data[point.y][point.x];
         }
         return result;
     }
 
+    bool in_bounds(const Point& point) const { return in_bounds(point.x, point.y); }
     bool in_bounds(int x, int y) const { return x >= 0 && x < static_cast<int>(m_cols) && y >= 0 && y < static_cast<int>(m_rows); }
+
+    void to_file(const std::filesystem::path& output_path) const
+    {
+        std::ofstream output_file(output_path);
+        for (const auto& row : m_data)
+        {
+            for (const auto& cell : row)
+            {
+                output_file << cell;
+            }
+            output_file << '\n';
+        }
+        output_file.close();
+    }
 
 private:
     std::vector<std::vector<char>> m_data;
