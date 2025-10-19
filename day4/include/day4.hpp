@@ -2,7 +2,7 @@
 #define AOC2024_DAY4_HPP
 
 #include "day.hpp"
-#include "tilemap.hpp"
+#include "grid.hpp"
 
 class Day4 : public Day
 {
@@ -12,9 +12,9 @@ public:
     std::string get_day_name() const override { return "Ceres Search"; }
 
 private:
-    TileMap parse_input(const std::filesystem::path& input_path);
-    int part1(const TileMap& tile_map);
-    int part2(const TileMap& tile_map);
+    Grid parse_input(const std::filesystem::path& input_path);
+    int part1(const Grid& grid);
+    int part2(const Grid& grid);
 };
 
 REGISTER_DAY(Day4, 4)
