@@ -17,8 +17,8 @@ public:
 
 private:
     std::pair<Grid, Point> parse_input(const std::filesystem::path& input_path);
-    int part1(Grid& grid, Point& start_position);
-    int part2(Grid& grid, Point& start_position);
+    std::pair<int, PatrolStates> part1(Grid& grid, Point& start_position);
+    int part2(Grid& grid, Point& start_position, const PatrolStates& initial_patrol_states);
 };
 
 REGISTER_DAY(Day6, 6)

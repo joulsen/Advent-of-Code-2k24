@@ -13,36 +13,32 @@ enum class PatrolResult
     LOOP = 1
 };
 
+using PatrolStates = std::unordered_map<Point, Point>;
+
 class Guard
 {
 public:
     Guard(Grid& grid, const Point& position) : m_grid(grid), m_position(position), m_direction{UP} {}
 
-    std::pair<PatrolResult, std::set<Point>> patrol()
+    PatrolResult patrol(PatrolStates& visited_states)
     {
-        std::set<Point> visited_positions;
-        std::set<std::pair<Point, Point>> visited_states;
-        unsigned int step = 0;
-
         while (true)
         {
-            ++step;
             if (peek() == '#')
             {
                 rotate();
                 continue;
             }
 
-            if (visited_states.count({m_position, m_direction}) > 0)
+            if (visited_states.find(m_position) != visited_states.end() && visited_states[m_position] == m_direction)
             {
-                return {PatrolResult::LOOP, visited_positions};
+                return PatrolResult::LOOP;
             }
 
-            visited_positions.insert(m_position);
-            visited_states.insert({m_position, m_direction});
+            visited_states[m_position] = m_direction;
             if (!move())
             {
-                return {PatrolResult::OUT_OF_BOUNDS, visited_positions};
+                return PatrolResult::OUT_OF_BOUNDS;
             }
         }
     }

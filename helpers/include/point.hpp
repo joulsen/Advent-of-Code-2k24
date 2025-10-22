@@ -6,8 +6,8 @@
 
 struct Point
 {
-    int x;
-    int y;
+    int32_t x;
+    int32_t y;
 
     constexpr Point operator+(const Point& other) const { return {x + other.x, y + other.y}; }
     constexpr Point operator-(const Point& other) const { return {x - other.x, y - other.y}; }
@@ -18,6 +18,15 @@ struct Point
 
     std::string to_string() const { return "(" + std::to_string(x) + ", " + std::to_string(y) + ")"; }
 };
+
+namespace std
+{
+template <>
+struct hash<Point>
+{
+    inline std::size_t operator()(const Point& p) const noexcept { return ((std::size_t)p.x * 73856093) ^ ((std::size_t)p.y * 19349663); }
+};
+}  // namespace std
 
 // Direction constants
 constexpr Point UP{0, -1};

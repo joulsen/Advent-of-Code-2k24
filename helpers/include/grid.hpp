@@ -156,6 +156,10 @@ public:
         output_file.close();
     }
 
+    unsigned int rows() const { return m_rows; }
+    unsigned int cols() const { return m_cols; }
+    unsigned int size() const { return m_rows * m_cols; }
+
 private:
     std::vector<std::vector<char>> m_data;
     std::unordered_map<char, std::vector<Point>> m_char_positions;
