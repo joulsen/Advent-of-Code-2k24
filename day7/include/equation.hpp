@@ -38,8 +38,13 @@ public:
     inline static long long multiply(unsigned long long a, unsigned long long b) { return a * b; }
     inline static long long concatenate(unsigned long long a, unsigned long long b)
     {
-        std::string concatenated = std::to_string(a) + std::to_string(b);
-        return std::stoull(concatenated);
+        unsigned long long b_remainder = b;
+        while (b_remainder > 0)
+        {
+            a *= 10;
+            b_remainder /= 10;
+        }
+        return a + b;
     }
 
     bool is_solvable(const std::vector<EquationOperator>& operators) const
