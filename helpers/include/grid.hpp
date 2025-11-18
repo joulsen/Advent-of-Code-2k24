@@ -159,6 +159,8 @@ public:
     unsigned int rows() const { return m_rows; }
     unsigned int cols() const { return m_cols; }
     unsigned int size() const { return m_rows * m_cols; }
+    unsigned int max_dimension() const { return std::max(m_rows, m_cols); }
+    const std::unordered_map<char, std::vector<Point>>& char_positions() const { return m_char_positions; }
 
 private:
     std::vector<std::vector<char>> m_data;
