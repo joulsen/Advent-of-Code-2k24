@@ -18,7 +18,7 @@ function(add_aoc_days target_name day_list)
 endfunction()
 
 # Define which days to include
-set(AOC_DAYS 1 2 3 4 5 6 7 8 9 10)
+set(AOC_DAYS 1 2 3 4 5 6 7 8 9 10 11)
 
 # Add all days
 add_aoc_days(aoc2024 "${AOC_DAYS}")
