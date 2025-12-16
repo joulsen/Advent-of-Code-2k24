@@ -2,6 +2,7 @@
 #define AOC2024_HELPERS_POINT_HPP
 
 #include <array>
+#include <ostream>
 #include <string>
 
 struct Point
@@ -17,6 +18,7 @@ struct Point
     constexpr bool operator<(const Point& other) const { return (x < other.x) || (x == other.x && y < other.y); }
 
     std::string to_string() const { return "(" + std::to_string(x) + ", " + std::to_string(y) + ")"; }
+    friend std::ostream& operator<<(std::ostream& os, const Point& p) { return os << "(" << p.x << ", " << p.y << ")"; }
 };
 
 namespace std
